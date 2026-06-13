@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getPool, sql } = require('../config/db');
+const supabase = require('../config/db');
 const { requireImportKey } = require('../middleware/auth');
 
 // ============================================
@@ -9,36 +9,47 @@ const { requireImportKey } = require('../middleware/auth');
 // ============================================
 router.get('/', async (req, res) => {
   try {
-    const pool = getPool();
-
     // Lấy danh sách danh nhân kèm thời kỳ
-    const result = await pool.request().query(`
-      SELECT 
-        c.id, c.name, c.alternative_name, 
-        c.birth_date, c.death_date, c.nationality,
-        c.summary, c.avatar_image, c.created_at,
-        hp.name AS period_name
-      FROM celebrities c
-      LEFT JOIN historical_periods hp ON c.historical_period_id = hp.id
-      ORDER BY c.name
-    `);
+    const { data: celebs, error: celebsError } = await supabase
+      .from('celebrities')
+      .select(`
+        id, name, alternative_name, 
+        birth_date, death_date, nationality,
+        summary, avatar_image, created_at,
+        historical_periods (name)
+      `)
+      .order('name');
+
+    if (celebsError) throw celebsError;
 
     // Lấy tất cả quan hệ danh nhân - lĩnh vực
-    const fieldsResult = await pool.request().query(`
-      SELECT cf.celebrity_id, f.id AS field_id, f.name AS field_name
-      FROM celebrity_fields cf
-      JOIN fields f ON cf.field_id = f.id
-    `);
+    const { data: fieldsData, error: fieldsError } = await supabase
+      .from('celebrity_fields')
+      .select(`
+        celebrity_id,
+        fields (id, name)
+      `);
+
+    if (fieldsError) throw fieldsError;
 
     // Gộp lĩnh vực vào từng danh nhân
-    const celebrities = result.recordset.map(celeb => ({
-      ...celeb,
-      fields: fieldsResult.recordset
-        .filter(f => f.celebrity_id === celeb.id)
-        .map(f => ({ id: f.field_id, name: f.field_name })),
+    const formatted = (celebs || []).map(c => ({
+      id: c.id,
+      name: c.name,
+      alternative_name: c.alternative_name,
+      birth_date: c.birth_date,
+      death_date: c.death_date,
+      nationality: c.nationality,
+      summary: c.summary,
+      avatar_image: c.avatar_image,
+      created_at: c.created_at,
+      period_name: c.historical_periods?.name || null,
+      fields: (fieldsData || [])
+        .filter(cf => cf.celebrity_id === c.id && cf.fields)
+        .map(cf => ({ id: cf.fields.id, name: cf.fields.name }))
     }));
 
-    res.json(celebrities);
+    res.json(formatted);
   } catch (error) {
     console.error('Lỗi lấy danh sách danh nhân:', error.message);
     res.status(500).json({ error: 'Không thể lấy danh sách danh nhân' });
@@ -50,55 +61,65 @@ router.get('/', async (req, res) => {
 // ============================================
 router.get('/:id', async (req, res) => {
   try {
-    const pool = getPool();
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id) || 0;
 
     // Thông tin danh nhân
-    const result = await pool.request()
-      .input('id', sql.Int, id)
-      .query(`
-        SELECT 
-          c.id, c.name, c.alternative_name,
-          c.birth_date, c.death_date, c.nationality,
-          c.summary, c.avatar_image, c.created_at,
-          c.historical_period_id,
-          hp.name AS period_name, hp.description AS period_description
-        FROM celebrities c
-        LEFT JOIN historical_periods hp ON c.historical_period_id = hp.id
-        WHERE c.id = @id
-      `);
+    const { data: celeb, error: celebError } = await supabase
+      .from('celebrities')
+      .select(`
+        id, name, alternative_name,
+        birth_date, death_date, nationality,
+        summary, avatar_image, created_at,
+        historical_period_id,
+        historical_periods (name, description)
+      `)
+      .eq('id', id)
+      .maybeSingle();
 
-    if (result.recordset.length === 0) {
+    if (celebError) throw celebError;
+    if (!celeb) {
       return res.status(404).json({ error: 'Không tìm thấy danh nhân' });
     }
 
     // Lĩnh vực của danh nhân
-    const fieldsResult = await pool.request()
-      .input('id', sql.Int, id)
-      .query(`
-        SELECT f.id, f.name, f.description
-        FROM celebrity_fields cf
-        JOIN fields f ON cf.field_id = f.id
-        WHERE cf.celebrity_id = @id
-      `);
+    const { data: cfData, error: cfError } = await supabase
+      .from('celebrity_fields')
+      .select('fields (id, name, description)')
+      .eq('celebrity_id', id);
+
+    if (cfError) throw cfError;
+
+    const formattedFields = (cfData || [])
+      .filter(x => x.fields)
+      .map(x => x.fields);
 
     // Câu chuyện của danh nhân
-    const storiesResult = await pool.request()
-      .input('id', sql.Int, id)
-      .query(`
-        SELECT id, title, view_count, created_at
-        FROM stories
-        WHERE celebrity_id = @id
-        ORDER BY created_at DESC
-      `);
+    const { data: storiesData, error: storiesError } = await supabase
+      .from('stories')
+      .select('id, title, view_count, created_at')
+      .eq('celebrity_id', id)
+      .order('created_at', { ascending: false });
 
-    const celebrity = {
-      ...result.recordset[0],
-      fields: fieldsResult.recordset,
-      stories: storiesResult.recordset,
+    if (storiesError) throw storiesError;
+
+    const formattedCeleb = {
+      id: celeb.id,
+      name: celeb.name,
+      alternative_name: celeb.alternative_name,
+      birth_date: celeb.birth_date,
+      death_date: celeb.death_date,
+      nationality: celeb.nationality,
+      summary: celeb.summary,
+      avatar_image: celeb.avatar_image,
+      created_at: celeb.created_at,
+      historical_period_id: celeb.historical_period_id,
+      period_name: celeb.historical_periods?.name || null,
+      period_description: celeb.historical_periods?.description || null,
+      fields: formattedFields,
+      stories: storiesData || []
     };
 
-    res.json(celebrity);
+    res.json(formattedCeleb);
   } catch (error) {
     console.error('Lỗi lấy chi tiết danh nhân:', error.message);
     res.status(500).json({ error: 'Không thể lấy thông tin danh nhân' });
@@ -110,23 +131,38 @@ router.get('/:id', async (req, res) => {
 // ============================================
 router.get('/field/:fieldId', async (req, res) => {
   try {
-    const pool = getPool();
-    const result = await pool.request()
-      .input('fieldId', sql.Int, req.params.fieldId)
-      .query(`
-        SELECT 
-          c.id, c.name, c.alternative_name,
-          c.birth_date, c.death_date, c.nationality,
-          c.summary, c.avatar_image,
-          hp.name AS period_name
-        FROM celebrities c
-        JOIN celebrity_fields cf ON c.id = cf.celebrity_id
-        LEFT JOIN historical_periods hp ON c.historical_period_id = hp.id
-        WHERE cf.field_id = @fieldId
-        ORDER BY c.name
-      `);
+    const fieldId = parseInt(req.params.fieldId) || 0;
 
-    res.json(result.recordset);
+    const { data: cfData, error: cfError } = await supabase
+      .from('celebrity_fields')
+      .select(`
+        celebrities (
+          id, name, alternative_name,
+          birth_date, death_date, nationality,
+          summary, avatar_image,
+          historical_periods (name)
+        )
+      `)
+      .eq('field_id', fieldId);
+
+    if (cfError) throw cfError;
+
+    const formatted = (cfData || [])
+      .filter(x => x.celebrities)
+      .map(x => ({
+        id: x.celebrities.id,
+        name: x.celebrities.name,
+        alternative_name: x.celebrities.alternative_name,
+        birth_date: x.celebrities.birth_date,
+        death_date: x.celebrities.death_date,
+        nationality: x.celebrities.nationality,
+        summary: x.celebrities.summary,
+        avatar_image: x.celebrities.avatar_image,
+        period_name: x.celebrities.historical_periods?.name || null
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    res.json(formatted);
   } catch (error) {
     console.error('Lỗi lấy danh nhân theo lĩnh vực:', error.message);
     res.status(500).json({ error: 'Không thể lấy danh nhân theo lĩnh vực' });
@@ -138,7 +174,6 @@ router.get('/field/:fieldId', async (req, res) => {
 // ============================================
 router.post('/', requireImportKey, async (req, res) => {
   try {
-    const pool = getPool();
     const {
       name, realName, birthYear, deathYear,
       shortDescription, image, era
@@ -151,40 +186,48 @@ router.post('/', requireImportKey, async (req, res) => {
     // Tìm hoặc tạo thời kỳ lịch sử
     let periodId = null;
     if (era) {
-      const periodResult = await pool.request()
-        .input('era', sql.NVarChar(100), era)
-        .query(`SELECT id FROM historical_periods WHERE name = @era`);
+      const { data: existingPeriod, error: periodError } = await supabase
+        .from('historical_periods')
+        .select('id')
+        .eq('name', era.trim())
+        .maybeSingle();
 
-      if (periodResult.recordset.length > 0) {
-        periodId = periodResult.recordset[0].id;
+      if (periodError) throw periodError;
+
+      if (existingPeriod) {
+        periodId = existingPeriod.id;
       } else {
-        const newPeriod = await pool.request()
-          .input('era', sql.NVarChar(100), era)
-          .query(`INSERT INTO historical_periods (name) VALUES (@era) RETURNING id`);
-        periodId = newPeriod.recordset[0].id;
+        const { data: newPeriod, error: newPeriodError } = await supabase
+          .from('historical_periods')
+          .insert({ name: era.trim() })
+          .select('id')
+          .single();
+
+        if (newPeriodError) throw newPeriodError;
+        periodId = newPeriod.id;
       }
     }
 
     // Thêm danh nhân
-    const result = await pool.request()
-      .input('name', sql.NVarChar(200), name.trim())
-      .input('alternative_name', sql.NVarChar(200), realName || null)
-      .input('birth_date', sql.VarChar(20), birthYear ? String(birthYear) : null)
-      .input('death_date', sql.VarChar(20), deathYear ? String(deathYear) : null)
-      .input('summary', sql.NVarChar(sql.MAX), shortDescription || null)
-      .input('avatar_image', sql.VarChar(500), image || null)
-      .input('period_id', sql.Int, periodId)
-      .query(`
-        INSERT INTO celebrities
-          (name, alternative_name, birth_date, death_date, summary, avatar_image, historical_period_id)
-        VALUES
-          (@name, @alternative_name, @birth_date, @death_date, @summary, @avatar_image, @period_id)
-        RETURNING id, name
-      `);
+    const { data: newCeleb, error: insertError } = await supabase
+      .from('celebrities')
+      .insert({
+        name: name.trim(),
+        alternative_name: realName || null,
+        birth_date: birthYear ? String(birthYear) : null,
+        death_date: deathYear ? String(deathYear) : null,
+        summary: shortDescription || null,
+        avatar_image: image || null,
+        historical_period_id: periodId
+      })
+      .select('id, name')
+      .single();
+
+    if (insertError) throw insertError;
 
     res.status(201).json({
       message: 'Thêm danh nhân thành công!',
-      celebrity: result.recordset[0]
+      celebrity: newCeleb
     });
   } catch (error) {
     console.error('Lỗi thêm danh nhân:', error.message);
