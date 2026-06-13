@@ -113,10 +113,10 @@
 }
 
 .title-highlight {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary-600) 100%);
+  background: linear-gradient(135deg, #d56bff 0%, #4a7fff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 40px rgba(255, 247, 135, 0.2);
+  text-shadow: 0 0 40px rgba(74, 127, 255, 0.2);
 }
 
 .hero__typewriter-container {
