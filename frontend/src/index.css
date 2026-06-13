@@ -15,9 +15,9 @@
   --color-primary-900: #0b0024;   /* Deepest – near black */
 
   /* === Neutral / Surface === */
-  --color-bg: #d56bff;            /* Main purple background */
-  --color-bg-light: #df8cff;      /* Lighter purple for alternating sections */
-  --color-bg-warm: #c556ff;       /* Highlight section */
+  --color-bg: #ffffff;            /* Main background - pure white */
+  --color-bg-light: #faf6ff;      /* Very light purple/lilac tint for alternating sections */
+  --color-bg-warm: #f3ebff;       /* Light warm lilac tint */
   --color-bg-elevated: #fcf7ff;   /* Elevated cards - clean off-white purple */
   --color-bg-footer: #120240;     /* Footer background - very dark indigo */
 
@@ -50,8 +50,8 @@
   --color-overlay-light: rgba(0, 0, 0, 0.04);
 
   /* === Header (glassmorphism) === */
-  --header-bg: rgba(213, 107, 255, 0.85);
-  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-bg-scrolled: rgba(255, 255, 255, 0.95);
 
   /* Common absolute colors */
   --color-white: #ffffff;
@@ -91,9 +91,9 @@
 /* ===== DARK MODE OVERRIDES ===== */
 [data-theme="dark"] {
   /* === Neutral / Surface === */
-  --color-bg: #d56bff;            /* Main purple background */
-  --color-bg-light: #df8cff;      /* Lighter purple */
-  --color-bg-warm: #c556ff;       /* Warm purple */
+  --color-bg: #ffffff;            /* Main background - pure white */
+  --color-bg-light: #faf6ff;      /* Lighter purple */
+  --color-bg-warm: #f3ebff;       /* Warm purple */
   --color-bg-elevated: #fcf7ff;   /* Cards */
   --color-bg-footer: #120240;     /* Dark footer */
 
@@ -125,8 +125,8 @@
   --color-overlay-light: rgba(255, 255, 255, 0.03);
 
   /* === Header (glassmorphism dark) === */
-  --header-bg: rgba(213, 107, 255, 0.85);
-  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-bg-scrolled: rgba(255, 255, 255, 0.95);
 }
 
 /* Reset */
