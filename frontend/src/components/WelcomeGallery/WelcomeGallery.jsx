@@ -17,7 +17,7 @@ export default function WelcomeGallery() {
             <Compass size={14} />
             Hành trình Văn hóa & Lịch sử
           </span>
-          <h2 className="welcome__title">Khám Phá Các Thời Kỳ Lịch Sử</h2>
+          <h2 className="welcome__title">Khám Phá Các Nhân Vật</h2>
           <p className="welcome__subtitle">
             Cùng tìm hiểu về cuộc đời, sự nghiệp và những cống hiến vĩ đại của các danh nhân, hiền tài nước Việt qua các triều đại lịch sử dựng nước và giữ nước.
           </p>

@@ -26,6 +26,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  height: 300px; /* Fixed height for desktop to prevent shifting */
+  justify-content: center; /* Center quote text vertically */
   transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
@@ -196,6 +198,7 @@
 @media (max-width: 768px) {
   .quotes-carousel__container {
     padding: var(--space-2xl) var(--space-xl);
+    height: 320px; /* Keep height fixed on mobile to prevent layout shifting */
   }
   
   .quotes-carousel__btn {
