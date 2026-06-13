@@ -10,6 +10,7 @@ const periodsRoutes = require('./routes/periods');
 const celebritiesRoutes = require('./routes/celebrities');
 const storiesRoutes = require('./routes/stories');
 const usersRoutes = require('./routes/users');
+const chatbotRoutes = require('./routes/chatbot');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -50,6 +51,7 @@ app.use('/api/periods', periodsRoutes);
 app.use('/api/celebrities', celebritiesRoutes);
 app.use('/api/stories', storiesRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 
 // ===== ERROR HANDLER =====
 app.use((err, req, res, next) => {
