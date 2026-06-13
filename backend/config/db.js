@@ -1,6 +1,16 @@
 const { Pool } = require('pg');
+const { createClient } = require('@supabase/supabase-js');
 
-// SQL type mocks for compatibility with mssql calls in route files
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error("❌ Thiếu biến môi trường Supabase rồi đại ca ơi!");
+}
+
+const supabase = createClient(supabaseUrl || 'https://placeholder-url.supabase.co', supabaseKey || 'placeholder-key');
+
+// --- COMPATIBILITY WRAPPER FOR DIRECT SQL QUERIES (Used by Existing Routes) ---
 const sql = {
   Int: 'Int',
   VarChar: (len) => `VarChar(${len})`,
@@ -8,12 +18,9 @@ const sql = {
   MAX: 'MAX'
 };
 
-// Database connection configuration for PostgreSQL
 const connectionString = process.env.DATABASE_URL;
-
 const dbConfig = {
   connectionString: connectionString || 'postgresql://postgres:postgres@localhost:5432/postgres',
-  // Enable SSL automatically for remote databases (like Supabase)
   ssl: connectionString && !connectionString.includes('localhost') && !connectionString.includes('127.0.0.1')
     ? { rejectUnauthorized: false }
     : false
@@ -34,19 +41,15 @@ class PgRequest {
     let translatedSql = sqlString;
     const values = [];
     const paramMap = {};
-
-    // Sort registered parameters by length descending to avoid partial substring match issues
     const keys = Object.keys(this.inputs).sort((a, b) => b.length - a.length);
 
     for (const key of keys) {
       const val = this.inputs[key];
-      // Match '@parameterName' with word boundary
       const regex = new RegExp(`@${key}\\b`, 'g');
-      
       if (regex.test(translatedSql)) {
         if (!(key in paramMap)) {
           values.push(val);
-          paramMap[key] = values.length; // 1-based index for $1, $2, etc.
+          paramMap[key] = values.length;
         }
         translatedSql = translatedSql.replace(regex, `$${paramMap[key]}`);
       }
@@ -84,16 +87,10 @@ class PgPoolWrapper {
 let pool = null;
 let poolWrapper = null;
 
-/**
- * Initialize connection to PostgreSQL (Supabase).
- */
 async function connectDB() {
-  if (pool) {
-    return poolWrapper;
-  }
+  if (pool) return poolWrapper;
   try {
     pool = new Pool(dbConfig);
-    // Test database connection query
     const res = await pool.query('SELECT NOW()');
     poolWrapper = new PgPoolWrapper(pool);
     console.log('✅ Kết nối PostgreSQL/Supabase thành công!');
@@ -107,9 +104,6 @@ async function connectDB() {
   }
 }
 
-/**
- * Get the connection pool wrapper.
- */
 function getPool() {
   if (!poolWrapper) {
     throw new Error('Database chưa được kết nối! Hãy gọi connectDB() trước.');
@@ -117,4 +111,9 @@ function getPool() {
   return poolWrapper;
 }
 
-module.exports = { sql, connectDB, getPool };
+// Attach compatibility properties to the default exported supabase client
+supabase.sql = sql;
+supabase.connectDB = connectDB;
+supabase.getPool = getPool;
+
+module.exports = supabase;
