@@ -2,47 +2,47 @@
 
 /* ===== CSS RESET & DESIGN TOKENS (LIGHT MODE DEFAULT) ===== */
 :root {
-  /* === Primary Palette (từ #fff787) === */
-  --color-primary-50:  #fffef2;   /* Lightest – backgrounds */
-  --color-primary-100: #fffde0;   /* Light – hover states */
-  --color-primary-200: #fffbc2;   /* Light accent */
-  --color-primary-300: #fff787;   /* ★ Main brand color */
-  --color-primary-400: #fffaaa;   /* Slightly darker */
-  --color-primary-500: #fff8cc;   /* Darker for text */
-  --color-primary-600: #e6de73;   /* Dark – active states */
-  --color-primary-700: #ccc55f;   /* Darker */
-  --color-primary-800: #b3ac4c;   /* Very dark */
-  --color-primary-900: #999338;   /* Deepest – near black */
+  /* === Primary Palette (từ #5f31ec) === */
+  --color-primary-50:  #f0ebff;   /* Lightest – backgrounds */
+  --color-primary-100: #dcd1ff;   /* Light – hover states */
+  --color-primary-200: #b9a3ff;   /* Light accent */
+  --color-primary-300: #5f31ec;   /* ★ Main brand color */
+  --color-primary-400: #4b24cc;   /* Slightly darker */
+  --color-primary-500: #3917a8;   /* Darker for text */
+  --color-primary-600: #2a0e85;   /* Dark – active states */
+  --color-primary-700: #1d0761;   /* Darker */
+  --color-primary-800: #120240;   /* Very dark */
+  --color-primary-900: #0b0024;   /* Deepest – near black */
 
   /* === Neutral / Surface === */
-  --color-bg: #66f9fa;
-  --color-bg-light: #bbfdfd;      /* Light cyan */
-  --color-bg-warm: #80fbfb;       /* Warm cyan */
-  --color-bg-elevated: #e6fefe;   /* Elevated cards */
-  --color-bg-footer: #1f7a7a;     /* Darker cyan footer */
+  --color-bg: #d56bff;            /* Main purple background */
+  --color-bg-light: #df8cff;      /* Lighter purple for alternating sections */
+  --color-bg-warm: #c556ff;       /* Highlight section */
+  --color-bg-elevated: #fcf7ff;   /* Elevated cards - clean off-white purple */
+  --color-bg-footer: #120240;     /* Footer background - very dark indigo */
 
   /* === Text === */
-  --color-text-primary: #1a1a2e;  /* Near black, hơi xanh */
-  --color-text-secondary: #4a5568;
-  --color-text-muted: #8896a6;
-  --color-text-inverse: #ffffff;  /* Text trên nền tối */
+  --color-text-primary: #0f052d;  /* Very dark indigo for maximum legibility */
+  --color-text-secondary: #2a1b54;
+  --color-text-muted: #6f5d9c;
+  --color-text-inverse: #ffffff;  /* Text on dark surfaces */
 
   /* === Border & Divider === */
-  --color-border: #e2e8f0;
-  --color-border-light: #edf2f7;
-  --color-divider: #e2e8f0;
+  --color-border: #dfbeff;        /* Soft purple border */
+  --color-border-light: #eedcff;
+  --color-divider: #dfbeff;
 
   /* === Shadows === */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 20px rgba(255, 247, 135, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --shadow-glow: 0 0 20px rgba(95, 49, 236, 0.35);
 
   /* === Accent / Semantic === */
-  --color-accent: #fff787;        /* = primary-300 */
-  --color-accent-hover: #e6de73;  /* primary-400 */
-  --color-accent-glow: rgba(255, 247, 135, 0.3);
-  --color-accent-soft: rgba(255, 247, 135, 0.1);
+  --color-accent: #4a7fff;        /* Azure blue accent */
+  --color-accent-hover: #2662ff;
+  --color-accent-glow: rgba(74, 127, 255, 0.35);
+  --color-accent-soft: rgba(74, 127, 255, 0.12);
   --color-gold: #f0c040;          /* Cho star ratings, highlights */
 
   /* === Overlay === */
@@ -50,8 +50,8 @@
   --color-overlay-light: rgba(0, 0, 0, 0.04);
 
   /* === Header (glassmorphism) === */
-  --header-bg: rgba(255, 255, 255, 0.85);
-  --header-bg-scrolled: rgba(255, 255, 255, 0.95);
+  --header-bg: rgba(213, 107, 255, 0.85);
+  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
 
   /* Common absolute colors */
   --color-white: #ffffff;
@@ -91,42 +91,42 @@
 /* ===== DARK MODE OVERRIDES ===== */
 [data-theme="dark"] {
   /* === Neutral / Surface === */
-  --color-bg: #66f9fa;            /* Cyan background */
-  --color-bg-light: #bbfdfd;      /* Nền section xen kẽ */
-  --color-bg-warm: #80fbfb;       /* Nền section highlight */
-  --color-bg-elevated: #e6fefe;   /* Cards, modals */
-  --color-bg-footer: #1f7a7a;     /* Footer tối hơn nền */
+  --color-bg: #d56bff;            /* Main purple background */
+  --color-bg-light: #df8cff;      /* Lighter purple */
+  --color-bg-warm: #c556ff;       /* Warm purple */
+  --color-bg-elevated: #fcf7ff;   /* Cards */
+  --color-bg-footer: #120240;     /* Dark footer */
 
   /* === Text === */
-  --color-text-primary: #1a1a2e;  /* Dark text - keep readable */
-  --color-text-secondary: #2d3748;
-  --color-text-muted: #718096;
+  --color-text-primary: #0f052d;  /* Dark text - keep readable */
+  --color-text-secondary: #2a1b54;
+  --color-text-muted: #6f5d9c;
   --color-text-inverse: #ffffff;
 
   /* === Border & Divider === */
-  --color-border: #4de5e6;        /* Border cyan, subtle */
-  --color-border-light: #80fbfb;
-  --color-divider: #4de5e6;
+  --color-border: #dfbeff;        /* Soft purple border */
+  --color-border-light: #eedcff;
+  --color-divider: #dfbeff;
 
   /* === Shadows (tối hơn, glow hơn) === */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 25px rgba(255, 247, 135, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 25px rgba(95, 49, 236, 0.35);
 
-  /* === Accent – giữ nguyên nhưng sáng hơn chút === */
-  --color-accent: #fff787;        /* Yellow on light cyan */
-  --color-accent-hover: #fffaaa;
-  --color-accent-glow: rgba(255, 247, 135, 0.25);
-  --color-accent-soft: rgba(255, 247, 135, 0.08);
+  /* === Accent === */
+  --color-accent: #4a7fff;        /* Azure blue */
+  --color-accent-hover: #2662ff;
+  --color-accent-glow: rgba(74, 127, 255, 0.35);
+  --color-accent-soft: rgba(74, 127, 255, 0.12);
 
   /* === Overlay === */
-  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay: rgba(0, 0, 0, 0.6);
   --color-overlay-light: rgba(255, 255, 255, 0.03);
 
   /* === Header (glassmorphism dark) === */
-  --header-bg: rgba(102, 249, 250, 0.85);
-  --header-bg-scrolled: rgba(102, 249, 250, 0.95);
+  --header-bg: rgba(213, 107, 255, 0.85);
+  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
 }
 
 /* Reset */

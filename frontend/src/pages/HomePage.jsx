@@ -6,7 +6,7 @@ import FeaturedSlider from '../components/FeaturedSlider/FeaturedSlider';
 import QuotesCarousel from '../components/QuotesCarousel/QuotesCarousel';
 import WelcomeGallery from '../components/WelcomeGallery/WelcomeGallery';
 import TimelineSection from '../components/TimelineSection/TimelineSection';
-import AboutSection from '../components/AboutSection/AboutSection';
+
 import NewsletterCTA from '../components/NewsletterCTA/NewsletterCTA';
 import Footer from '../components/Footer/Footer';
 import ScrollReveal from '../components/common/ScrollReveal/ScrollReveal';
@@ -39,9 +39,7 @@ export default function HomePage() {
           <TimelineSection />
         </ScrollReveal>
         
-        <ScrollReveal animation="fade-up">
-          <AboutSection />
-        </ScrollReveal>
+
         
         <ScrollReveal animation="zoom-in">
           <NewsletterCTA />
