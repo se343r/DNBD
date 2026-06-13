@@ -3,9 +3,9 @@
 /* ===== CSS RESET & DESIGN TOKENS (LIGHT MODE DEFAULT) ===== */
 :root {
   /* === Primary Palette (từ #6bbdef) === */
-  --color-primary-50:  #e8f4fd;   /* Lightest – backgrounds */
-  --color-primary-100: #c5e4f9;   /* Light – hover states */
-  --color-primary-200: #9dd2f5;   /* Light accent */
+  --color-primary-50:  #e6fefe;   /* Lightest – backgrounds */
+  --color-primary-100: #bbfdfd;   /* Light – hover states */
+  --color-primary-200: #80fbfb;   /* Light accent */
   --color-primary-300: #66f9fa;   /* ★ Main brand color */
   --color-primary-400: #4de5e6;   /* Slightly darker */
   --color-primary-500: #33cccc;   /* Darker for text on light bg */
