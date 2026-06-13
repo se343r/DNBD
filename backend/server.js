@@ -58,14 +58,18 @@ app.use((err, req, res, next) => {
   console.error('❌ Lỗi server:', err.stack);
   res.status(500).json({
     status: 'error',
-    message: 'Đã xảy ra lỗi hệ thống từ phía Server!'
+    message: 'Đã xảy ra lỗi hệ thống từ phía Server!',
+    detail: err.message
   });
 });
 
 // ===== KHỞI ĐỘNG SERVER =====
 async function startServer() {
   try {
-    await connectDB();
+    // Thử kết nối DB khi khởi động, ghi nhận log nếu lỗi mà không crash server
+    await connectDB().catch(err => {
+      console.error('⚠️ Lỗi kết nối DB ban đầu (Server vẫn khởi động):', err.message);
+    });
 
     app.listen(PORT, () => {
       console.log(`=============================================`);

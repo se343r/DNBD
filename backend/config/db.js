@@ -100,6 +100,8 @@ async function connectDB() {
     console.log(`   🕒 Giờ server: ${res.rows[0].now}`);
     return poolWrapper;
   } catch (error) {
+    pool = null;
+    poolWrapper = null;
     console.error('❌ Lỗi kết nối PostgreSQL/Supabase:', error.message);
     throw error;
   }
