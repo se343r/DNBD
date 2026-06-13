@@ -8,6 +8,11 @@ export default function QuotesCarousel() {
   const [currentQuote, setCurrentQuote] = useState(0);
   const [isFade, setIsFade] = useState(false);
   const autoPlayRef = useRef(null);
+  
+  const [randomGradient] = useState(() => {
+    const angle = Math.floor(Math.random() * 360);
+    return `linear-gradient(${angle}deg, #5f31ec, #000000, #d56bff)`;
+  });
 
   const triggerNext = useCallback(() => {
     setIsFade(true);
@@ -50,6 +55,7 @@ export default function QuotesCarousel() {
     <section 
       className="quotes-section" 
       id="quotes-section"
+      style={{ background: randomGradient }}
       onMouseEnter={stopTimer}
       onMouseLeave={startTimer}
     >

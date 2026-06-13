@@ -15,27 +15,27 @@
   --color-primary-900: #0b0024;   /* Deepest – near black */
 
   /* === Neutral / Surface === */
-  --color-bg: #d56bff;            /* Main purple background */
-  --color-bg-light: #df8cff;      /* Lighter purple for alternating sections */
-  --color-bg-warm: #c556ff;       /* Highlight section */
-  --color-bg-elevated: #fcf7ff;   /* Elevated cards - clean off-white purple */
-  --color-bg-footer: #120240;     /* Footer background - very dark indigo */
+  --color-bg: #000000;            /* Main background - black */
+  --color-bg-light: #121212;      /* Dark gray for alternating sections */
+  --color-bg-warm: #181818;       /* Highlight section */
+  --color-bg-elevated: #1e1b29;   /* Elevated cards - dark purple-gray */
+  --color-bg-footer: #0a001a;     /* Footer background - near-black purple */
 
   /* === Text === */
-  --color-text-primary: #0f052d;  /* Very dark indigo for maximum legibility */
-  --color-text-secondary: #2a1b54;
-  --color-text-muted: #6f5d9c;
-  --color-text-inverse: #ffffff;  /* Text on dark surfaces */
+  --color-text-primary: #ffffff;  /* White primary text for legibility */
+  --color-text-secondary: #e2d9f3;
+  --color-text-muted: #a89dbd;
+  --color-text-inverse: #000000;  /* Dark text for buttons/badges with light background */
 
   /* === Border & Divider === */
-  --color-border: #dfbeff;        /* Soft purple border */
-  --color-border-light: #eedcff;
-  --color-divider: #dfbeff;
+  --color-border: #392275;        /* Dark purple border */
+  --color-border-light: #2d195d;
+  --color-divider: #392275;
 
   /* === Shadows === */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
   --shadow-glow: 0 0 20px rgba(95, 49, 236, 0.35);
 
   /* === Accent / Semantic === */
@@ -46,12 +46,12 @@
   --color-gold: #f0c040;          /* Cho star ratings, highlights */
 
   /* === Overlay === */
-  --color-overlay: rgba(0, 0, 0, 0.5);
-  --color-overlay-light: rgba(0, 0, 0, 0.04);
+  --color-overlay: rgba(0, 0, 0, 0.8);
+  --color-overlay-light: rgba(255, 255, 255, 0.05);
 
   /* === Header (glassmorphism) === */
-  --header-bg: rgba(213, 107, 255, 0.85);
-  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
+  --header-bg: rgba(0, 0, 0, 0.85);
+  --header-bg-scrolled: rgba(0, 0, 0, 0.95);
 
   /* Common absolute colors */
   --color-white: #ffffff;
@@ -91,27 +91,27 @@
 /* ===== DARK MODE OVERRIDES ===== */
 [data-theme="dark"] {
   /* === Neutral / Surface === */
-  --color-bg: #d56bff;            /* Main purple background */
-  --color-bg-light: #df8cff;      /* Lighter purple */
-  --color-bg-warm: #c556ff;       /* Warm purple */
-  --color-bg-elevated: #fcf7ff;   /* Cards */
-  --color-bg-footer: #120240;     /* Dark footer */
+  --color-bg: #000000;            /* Black background */
+  --color-bg-light: #121212;      /* Dark gray */
+  --color-bg-warm: #181818;       /* Highlight dark gray */
+  --color-bg-elevated: #1e1b29;   /* Cards */
+  --color-bg-footer: #0a001a;     /* Dark footer */
 
   /* === Text === */
-  --color-text-primary: #0f052d;  /* Dark text - keep readable */
-  --color-text-secondary: #2a1b54;
-  --color-text-muted: #6f5d9c;
-  --color-text-inverse: #ffffff;
+  --color-text-primary: #ffffff;  /* White text */
+  --color-text-secondary: #e2d9f3;
+  --color-text-muted: #a89dbd;
+  --color-text-inverse: #000000;
 
   /* === Border & Divider === */
-  --color-border: #dfbeff;        /* Soft purple border */
-  --color-border-light: #eedcff;
-  --color-divider: #dfbeff;
+  --color-border: #392275;        /* Dark purple border */
+  --color-border-light: #2d195d;
+  --color-divider: #392275;
 
   /* === Shadows (tối hơn, glow hơn) === */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
   --shadow-glow: 0 0 25px rgba(95, 49, 236, 0.35);
 
   /* === Accent === */
@@ -121,12 +121,12 @@
   --color-accent-soft: rgba(74, 127, 255, 0.12);
 
   /* === Overlay === */
-  --color-overlay: rgba(0, 0, 0, 0.6);
-  --color-overlay-light: rgba(255, 255, 255, 0.03);
+  --color-overlay: rgba(0, 0, 0, 0.8);
+  --color-overlay-light: rgba(255, 255, 255, 0.05);
 
   /* === Header (glassmorphism dark) === */
-  --header-bg: rgba(213, 107, 255, 0.85);
-  --header-bg-scrolled: rgba(213, 107, 255, 0.95);
+  --header-bg: rgba(0, 0, 0, 0.85);
+  --header-bg-scrolled: rgba(0, 0, 0, 0.95);
 }
 
 /* Reset */

@@ -1,7 +1,7 @@
 /* ===== FEATURED SLIDER ===== */
 .featured {
   padding: var(--space-4xl) 0;
-  background: var(--color-bg-light);
+  background: linear-gradient(135deg, #d56bff, #5f31ec, #4a7fff);
   transition: background-color var(--transition-base);
   position: relative;
   overflow: hidden;
