@@ -3,6 +3,21 @@
    ========================================================================== */
 
 .import-page {
+  /* Redefine local tokens for Dark Theme */
+  --color-bg: #090514;
+  --color-bg-light: #130d22;
+  --color-bg-warm: #1a122e;
+  --color-bg-elevated: #160f26;
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.05);
+  --color-divider: rgba(255, 255, 255, 0.1);
+  
+  --header-bg: rgba(9, 5, 20, 0.85);
+  --header-bg-scrolled: rgba(9, 5, 20, 0.95);
+
   background-color: var(--color-bg);
   min-height: 100vh;
   color: var(--color-text-primary);
@@ -23,7 +38,7 @@
 /* Header bar */
 .import-header-bar {
   margin-bottom: 25px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 15px;
 }
 
@@ -55,7 +70,7 @@
   color: #fff;
   margin: 0 0 8px 0;
   letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #fff 0%, #d4af37 100%);
+  background: linear-gradient(90deg, #d56bff 0%, #4a7fff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -76,12 +91,12 @@
 
 /* Form Card with Tabs */
 .import-card {
-  background: rgba(26, 17, 16, 0.5);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .import-tabs {
@@ -113,9 +128,9 @@
 }
 
 .import-tab-btn--active {
-  background: rgba(212, 175, 55, 0.1);
-  border-color: rgba(212, 175, 55, 0.25);
-  color: #d4af37;
+  background: rgba(95, 49, 236, 0.15);
+  border-color: rgba(95, 49, 236, 0.3);
+  color: #b9a3ff;
 }
 
 /* Forms styling */
@@ -165,9 +180,9 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #d4af37;
+  border-color: #5f31ec;
   background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 0 10px rgba(95, 49, 236, 0.3);
 }
 
 .form-row {
@@ -264,8 +279,8 @@
 
 /* Submit button */
 .import-submit-btn {
-  background: linear-gradient(135deg, #d4af37 0%, #aa841c 100%);
-  color: #120a08;
+  background: linear-gradient(135deg, #5f31ec 0%, #d56bff 100%);
+  color: #fff;
   border: none;
   border-radius: 8px;
   padding: 13px;
@@ -276,14 +291,14 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 4px 15px rgba(95, 49, 236, 0.25);
   transition: all 0.3s ease;
   margin-top: 10px;
 }
 
 .import-submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 6px 20px rgba(95, 49, 236, 0.4);
 }
 
 .import-submit-btn:disabled {
@@ -319,9 +334,9 @@
 .preview-sticky-box {
   position: sticky;
   top: 100px;
-  background: rgba(20, 14, 12, 0.4);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
@@ -668,36 +683,36 @@
    ========================================================================== */
 
 .password-gate-card {
-  background: rgba(26, 17, 16, 0.6);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 40px;
   max-width: 420px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
 
 .password-gate-icon {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(212, 175, 55, 0.1);
-  color: #d4af37;
+  background: rgba(95, 49, 236, 0.1);
+  color: #b9a3ff;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto 24px auto;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 20px rgba(95, 49, 236, 0.15);
+  border: 1px solid rgba(95, 49, 236, 0.2);
 }
 
 .password-gate-title {
   font-size: 24px;
   font-weight: 850;
   margin: 0 0 10px 0;
-  background: linear-gradient(90deg, #fff 0%, #d4af37 100%);
+  background: linear-gradient(90deg, #d56bff 0%, #4a7fff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 0.5px;
@@ -730,9 +745,9 @@
 
 .password-gate-input:focus {
   outline: none;
-  border-color: #d4af37 !important;
+  border-color: #5f31ec !important;
   background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 0 12px rgba(95, 49, 236, 0.2) !important;
 }
 
 .password-gate-error {
@@ -743,8 +758,8 @@
 }
 
 .password-gate-btn {
-  background: linear-gradient(135deg, #d4af37 0%, #aa841c 100%);
-  color: #120a08;
+  background: linear-gradient(135deg, #5f31ec 0%, #d56bff 100%);
+  color: #fff;
   border: none;
   border-radius: 8px;
   padding: 12px;
@@ -755,11 +770,11 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 15px rgba(95, 49, 236, 0.2);
   transition: all 0.3s ease;
 }
 
 .password-gate-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 6px 20px rgba(95, 49, 236, 0.35);
 }
