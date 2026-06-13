@@ -58,7 +58,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: var(--space-3xl);
-  min-height: 420px;
+  height: 520px; /* Fixed height for desktop to prevent layout shifting */
   align-items: center;
   gap: var(--space-2xl);
   z-index: 1;
@@ -124,6 +124,12 @@
   color: var(--color-text-primary);
   line-height: 1.1;
   transition: color var(--transition-base);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .featured__card-lifespan {
@@ -137,6 +143,11 @@
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--color-text-secondary);
+  height: 80px; /* Constrain description height to prevent shift */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 /* Achievements */
@@ -146,6 +157,8 @@
   padding: var(--space-md);
   border-left: 3px solid var(--color-accent);
   transition: background-color var(--transition-base);
+  height: 110px; /* Constrain achievements height */
+  overflow: hidden;
 }
 
 .achievements-title {
@@ -189,7 +202,7 @@
 
 .featured__image-container {
   width: 100%;
-  height: 320px;
+  height: 380px; /* Increased image height to match fixed card height */
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
