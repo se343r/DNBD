@@ -15,11 +15,11 @@
   --color-primary-900: #0a2929;   /* Deepest – near black */
 
   /* === Neutral / Surface === */
-  --color-bg: #ffffff;
-  --color-bg-light: #f7f9fb;      /* Tint xanh nhẹ */
-  --color-bg-warm: #f0f6fb;       /* Cool blue tint sections */
-  --color-bg-elevated: #ffffff;   /* Cards, modals */
-  --color-bg-footer: #1a1a2e;     /* Footer luôn tối */
+  --color-bg: #fff787;
+  --color-bg-light: #fffbc2;      /* Light yellow */
+  --color-bg-warm: #fff99c;       /* Warm yellow */
+  --color-bg-elevated: #fffaaa;   /* Elevated cards */
+  --color-bg-footer: #d5cf65;     /* Darker yellow footer */
 
   /* === Text === */
   --color-text-primary: #1a1a2e;  /* Near black, hơi xanh */
@@ -91,22 +91,22 @@
 /* ===== DARK MODE OVERRIDES ===== */
 [data-theme="dark"] {
   /* === Neutral / Surface === */
-  --color-bg: #0f1729;            /* Deep navy – nền chính */
-  --color-bg-light: #162038;      /* Nền section xen kẽ */
-  --color-bg-warm: #1a2744;       /* Nền section highlight */
-  --color-bg-elevated: #1e2d4a;   /* Cards, modals – nổi hơn nền */
-  --color-bg-footer: #0a0f1e;     /* Footer tối hơn nền */
+  --color-bg: #fff787;            /* Yellow - changed from deep navy */
+  --color-bg-light: #fffbc2;      /* Nền section xen kẽ */
+  --color-bg-warm: #fff99c;       /* Nền section highlight */
+  --color-bg-elevated: #fffaaa;   /* Cards, modals – nổi hơn nền */
+  --color-bg-footer: #d5cf65;     /* Footer tối hơn nền */
 
   /* === Text === */
-  --color-text-primary: #e8edf5;  /* Trắng nhẹ xanh – dễ đọc */
-  --color-text-secondary: #a0aec0;
-  --color-text-muted: #6b7a8d;
-  --color-text-inverse: #0f1729;
+  --color-text-primary: #1a1a2e;  /* Dark text – changed from light */
+  --color-text-secondary: #2d3748;
+  --color-text-muted: #718096;
+  --color-text-inverse: #ffffff;
 
   /* === Border & Divider === */
-  --color-border: #2d3a52;        /* Border tối, subtle */
-  --color-border-light: #243049;
-  --color-divider: #2d3a52;
+  --color-border: #dcd77b;        /* Border yellow, subtle */
+  --color-border-light: #e5e088;
+  --color-divider: #dcd77b;
 
   /* === Shadows (tối hơn, glow hơn) === */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -125,8 +125,8 @@
   --color-overlay-light: rgba(255, 255, 255, 0.03);
 
   /* === Header (glassmorphism dark) === */
-  --header-bg: rgba(15, 23, 41, 0.85);
-  --header-bg-scrolled: rgba(15, 23, 41, 0.95);
+  --header-bg: rgba(255, 247, 135, 0.85);
+  --header-bg-scrolled: rgba(255, 247, 135, 0.95);
 }
 
 /* Reset */

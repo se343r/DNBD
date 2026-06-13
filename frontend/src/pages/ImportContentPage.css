@@ -3,9 +3,9 @@
    ========================================================================== */
 
 .import-page {
-  background-color: #0b0706;
+  background-color: var(--color-bg);
   min-height: 100vh;
-  color: #fff;
+  color: var(--color-text-primary);
   font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
 }
 
