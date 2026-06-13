@@ -162,12 +162,11 @@
   color: #ef4444;
 }
 
-.form-group input[type="text"],
-.form-group input[type="url"],
+.form-group input,
 .form-group select,
 .form-group textarea {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #130d22;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 10px 12px;
   color: #fff;
@@ -176,13 +175,38 @@
   font-family: inherit;
 }
 
+.form-group select option {
+  background-color: #130d22;
+  color: #ffffff;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: #5f31ec;
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 10px rgba(95, 49, 236, 0.3);
+  background: #18112d;
+  box-shadow: 0 0 10px rgba(95, 49, 236, 0.4);
+}
+
+/* Autofill styling override for browser dark mode compatibility */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover, 
+.form-group input:-webkit-autofill:focus,
+.form-group textarea:-webkit-autofill,
+.form-group textarea:-webkit-autofill:hover,
+.form-group textarea:-webkit-autofill:focus,
+.form-group select:-webkit-autofill,
+.form-group select:-webkit-autofill:hover,
+.form-group select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #130d22 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .form-row {
@@ -204,14 +228,27 @@
 .achievement-input-row input,
 .achievement-input-row textarea {
   flex: 1;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #130d22;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 10px 12px;
   color: #fff;
   font-size: 13.5px;
   transition: all 0.2s ease;
   font-family: inherit;
+}
+
+.achievement-input-row input::placeholder,
+.achievement-input-row textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.achievement-input-row input:focus,
+.achievement-input-row textarea:focus {
+  outline: none;
+  border-color: #5f31ec;
+  background: #18112d;
+  box-shadow: 0 0 10px rgba(95, 49, 236, 0.4);
 }
 
 .remove-ach-btn {
@@ -732,8 +769,8 @@
 }
 
 .password-gate-input {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #130d22 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 8px !important;
   padding: 12px 14px !important;
   color: #fff !important;
@@ -746,8 +783,12 @@
 .password-gate-input:focus {
   outline: none;
   border-color: #5f31ec !important;
-  background: rgba(255, 255, 255, 0.06) !important;
-  box-shadow: 0 0 12px rgba(95, 49, 236, 0.2) !important;
+  background: #18112d !important;
+  box-shadow: 0 0 12px rgba(95, 49, 236, 0.35) !important;
+}
+
+.password-gate-input::placeholder {
+  color: rgba(255, 255, 255, 0.35) !important;
 }
 
 .password-gate-error {
