@@ -75,13 +75,13 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: rgba(102, 249, 250, 0.15);
+  background: rgba(255, 247, 135, 0.15);
   color: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-md);
-  border: 1px solid rgba(102, 249, 250, 0.2);
+  border: 1px solid rgba(255, 247, 135, 0.2);
 }
 
 [data-theme="dark"] .newsletter-icon-frame {
