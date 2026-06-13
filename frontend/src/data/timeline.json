@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tl-1",
+    "year": "Năm 40 SCN",
+    "title": "Khởi nghĩa Hai Bà Trưng bùng nổ",
+    "description": "Hai Bà Trưng phất cờ khởi nghĩa tại Mê Linh, đánh đuổi quân Đông Hán, xưng Vương và lập vương triều độc lập tự chủ.",
+    "figureId": "hai-ba-trung",
+    "era": "Cổ đại"
+  },
+  {
+    "id": "tl-2",
+    "year": "Năm 1288",
+    "title": "Chiến thắng Bạch Đằng lịch sử",
+    "description": "Quân dân nhà Trần dưới sự chỉ huy của Quốc công Tiết chế Trần Hưng Đạo đại phá quân Nguyên Mông lần thứ ba trên sông Bạch Đằng.",
+    "figureId": "tran-hung-dao",
+    "era": "Trung đại"
+  },
+  {
+    "id": "tl-3",
+    "year": "Năm 1428",
+    "title": "Khởi nghĩa Lam Sơn thắng lợi",
+    "description": "Lê Lợi cùng nghĩa quân đánh tan quân Minh xâm lược, Nguyễn Trãi soạn 'Bình Ngô đại cáo', lập ra nhà Hậu Lê hưng thịnh.",
+    "figureId": "le-loi",
+    "era": "Trung đại"
+  },
+  {
+    "id": "tl-4",
+    "year": "Năm 1820",
+    "title": "Thời kỳ đỉnh cao văn học trung đại",
+    "description": "Đại thi hào Nguyễn Du hoàn thành và truyền bá kiệt tác 'Truyện Kiều', ghi dấu ấn vàng son của văn học chữ Nôm nước nhà.",
+    "figureId": "nguyen-du",
+    "era": "Cận đại"
+  },
+  {
+    "id": "tl-5",
+    "year": "Năm 1945",
+    "title": "Tuyên ngôn Độc lập nước Việt Nam",
+    "description": "Chủ tịch Hồ Chí Minh đọc bản Tuyên ngôn Độc lập tại quảng trường Ba Đình lịch sử, khai sinh ra nước Việt Nam Dân chủ Cộng hòa.",
+    "figureId": "ho-chi-minh",
+    "era": "Hiện đại"
+  },
+  {
+    "id": "tl-6",
+    "year": "Năm 1954",
+    "title": "Chiến thắng Điện Biên Phủ chấn động",
+    "description": "Quân đội Nhân dân Việt Nam dưới sự tổng chỉ huy của Đại tướng Võ Nguyên Giáp đập tan tập đoàn cứ điểm Điện Biên Phủ của Pháp.",
+    "figureId": "vo-nguyen-giap",
+    "era": "Hiện đại"
+  }
+]

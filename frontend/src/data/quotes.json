@@ -1,0 +1,37 @@
+[
+  {
+    "id": "quote-1",
+    "text": "Không có gì quý hơn độc lập, tự do.",
+    "author": "Hồ Chí Minh",
+    "authorId": "ho-chi-minh",
+    "authorImage": "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=150&auto=format&fit=crop"
+  },
+  {
+    "id": "quote-2",
+    "text": "Nếu bệ hạ muốn hàng, hãy chém đầu thần trước đã.",
+    "author": "Trần Hưng Đạo",
+    "authorId": "tran-hung-dao",
+    "authorImage": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?q=80&w=150&auto=format&fit=crop"
+  },
+  {
+    "id": "quote-3",
+    "text": "Đem đại nghĩa để thắng hung tàn, Lấy chí nhân để thay cường bạo.",
+    "author": "Nguyễn Trãi",
+    "authorId": "nguyen-trai",
+    "authorImage": "https://images.unsplash.com/photo-1578925547913-d86a9e16d814?q=80&w=150&auto=format&fit=crop"
+  },
+  {
+    "id": "quote-4",
+    "text": "Trăm năm trong cõi người ta, Chữ tài chữ mệnh khéo là ghét nhau.",
+    "author": "Nguyễn Du",
+    "authorId": "nguyen-du",
+    "authorImage": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=150&auto=format&fit=crop"
+  },
+  {
+    "id": "quote-5",
+    "text": "Thần không sợ chết, chỉ sợ không làm tròn nhiệm vụ cứu nước.",
+    "author": "Trưng Trắc (Hai Bà Trưng)",
+    "authorId": "hai-ba-trung",
+    "authorImage": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=150&auto=format&fit=crop"
+  }
+]

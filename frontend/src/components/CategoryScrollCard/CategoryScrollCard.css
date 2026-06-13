@@ -1,0 +1,250 @@
+/* ==========================================================
+   CATEGORY SCROLL CARD — Vertical Layout + Hover Popup
+   ========================================================== */
+
+/* --- Card Wrapper (container for card + popup trigger) --- */
+.scroll-card-wrapper {
+  flex-shrink: 0;
+  width: 220px;
+  scroll-snap-align: start;
+  position: relative;
+}
+
+/* --- Card: Image on top, no overlay --- */
+.scroll-card {
+  display: block;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.scroll-card__image {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--color-bg-light);
+}
+
+.scroll-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Hover on wrapper lifts the card */
+.scroll-card-wrapper:hover .scroll-card {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.scroll-card-wrapper:hover .scroll-card__image img {
+  transform: scale(1.04);
+}
+
+/* --- Text Label below image --- */
+.scroll-card__label {
+  padding: 8px 2px 0;
+}
+
+.scroll-card__name {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: left;
+}
+
+/* Focus visible (accessibility) */
+.scroll-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================
+   HOVER POPUP — Portal-based, positioned absolute on body
+   ========================================================== */
+.scroll-card-popup {
+  z-index: 9999;
+  pointer-events: auto;
+  animation: popupFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-card-popup__inner {
+  display: flex;
+  gap: var(--space-md);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18),
+              0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: var(--space-lg);
+  max-width: 100%;
+}
+
+/* Dark mode popup */
+[data-theme="dark"] .scroll-card-popup__inner {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5),
+              0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Popup Thumbnail (left) --- */
+.scroll-card-popup__thumb {
+  flex-shrink: 0;
+  width: 90px;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-light);
+}
+
+.scroll-card-popup__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Popup Details (right) --- */
+.scroll-card-popup__details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.scroll-card-popup__title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.scroll-card-popup__author {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.scroll-card-popup__price {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 2px 0 6px;
+}
+
+/* --- Action Buttons --- */
+.scroll-card-popup__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: 6px;
+}
+
+.scroll-card-popup__read-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.scroll-card-popup__read-btn:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+.scroll-card-popup__heart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-light);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.scroll-card-popup__heart-btn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* --- Description --- */
+.scroll-card-popup__desc {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- Detail Link --- */
+.scroll-card-popup__detail-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: 4px;
+  transition: color var(--transition-fast);
+  display: inline-block;
+}
+
+.scroll-card-popup__detail-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+@media (max-width: 900px) {
+  /* Disable popup on tablets — too small for side popups */
+  .scroll-card-popup {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .scroll-card-wrapper {
+    width: 170px;
+  }
+
+  .scroll-card__name {
+    font-size: 0.82rem;
+  }
+}

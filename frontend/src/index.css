@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&display=swap');
+
+/* ===== CSS RESET & DESIGN TOKENS (LIGHT MODE DEFAULT) ===== */
+:root {
+  /* === Primary Palette (từ #6bbdef) === */
+  --color-primary-50:  #e8f4fd;   /* Lightest – backgrounds */
+  --color-primary-100: #c5e4f9;   /* Light – hover states */
+  --color-primary-200: #9dd2f5;   /* Light accent */
+  --color-primary-300: #6bbdef;   /* ★ Main brand color */
+  --color-primary-400: #4aaeeb;   /* Slightly darker */
+  --color-primary-500: #2196e3;   /* Darker for text on light bg */
+  --color-primary-600: #1a78c2;   /* Dark – active states */
+  --color-primary-700: #135a94;   /* Darker */
+  --color-primary-800: #0d3d66;   /* Very dark */
+  --color-primary-900: #071f38;   /* Deepest – near black */
+
+  /* === Neutral / Surface === */
+  --color-bg: #ffffff;
+  --color-bg-light: #f7f9fb;      /* Tint xanh nhẹ */
+  --color-bg-warm: #f0f6fb;       /* Cool blue tint sections */
+  --color-bg-elevated: #ffffff;   /* Cards, modals */
+  --color-bg-footer: #1a1a2e;     /* Footer luôn tối */
+
+  /* === Text === */
+  --color-text-primary: #1a1a2e;  /* Near black, hơi xanh */
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #8896a6;
+  --color-text-inverse: #ffffff;  /* Text trên nền tối */
+
+  /* === Border & Divider === */
+  --color-border: #e2e8f0;
+  --color-border-light: #edf2f7;
+  --color-divider: #e2e8f0;
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(107, 189, 239, 0.3);
+
+  /* === Accent / Semantic === */
+  --color-accent: #6bbdef;        /* = primary-300 */
+  --color-accent-hover: #4aaeeb;  /* primary-400 */
+  --color-accent-glow: rgba(107, 189, 239, 0.3);
+  --color-accent-soft: rgba(107, 189, 239, 0.1);
+  --color-gold: #f0c040;          /* Cho star ratings, highlights */
+
+  /* === Overlay === */
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-overlay-light: rgba(0, 0, 0, 0.04);
+
+  /* === Header (glassmorphism) === */
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-bg-scrolled: rgba(255, 255, 255, 0.95);
+
+  /* Common absolute colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Playfair Display', 'Georgia', serif;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 72px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+[data-theme="dark"] {
+  /* === Neutral / Surface === */
+  --color-bg: #0f1729;            /* Deep navy – nền chính */
+  --color-bg-light: #162038;      /* Nền section xen kẽ */
+  --color-bg-warm: #1a2744;       /* Nền section highlight */
+  --color-bg-elevated: #1e2d4a;   /* Cards, modals – nổi hơn nền */
+  --color-bg-footer: #0a0f1e;     /* Footer tối hơn nền */
+
+  /* === Text === */
+  --color-text-primary: #e8edf5;  /* Trắng nhẹ xanh – dễ đọc */
+  --color-text-secondary: #a0aec0;
+  --color-text-muted: #6b7a8d;
+  --color-text-inverse: #0f1729;
+
+  /* === Border & Divider === */
+  --color-border: #2d3a52;        /* Border tối, subtle */
+  --color-border-light: #243049;
+  --color-divider: #2d3a52;
+
+  /* === Shadows (tối hơn, glow hơn) === */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 25px rgba(107, 189, 239, 0.25);
+
+  /* === Accent – giữ nguyên nhưng sáng hơn chút === */
+  --color-accent: #7ec8f5;        /* Sáng hơn trên nền tối */
+  --color-accent-hover: #9dd5f8;
+  --color-accent-glow: rgba(126, 200, 245, 0.25);
+  --color-accent-soft: rgba(126, 200, 245, 0.08);
+
+  /* === Overlay === */
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-overlay-light: rgba(255, 255, 255, 0.03);
+
+  /* === Header (glassmorphism dark) === */
+  --header-bg: rgba(15, 23, 41, 0.85);
+  --header-bg-scrolled: rgba(15, 23, 41, 0.95);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Smooth theme transitions */
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Auto dim images slightly in dark mode for better visual comfort */
+[data-theme="dark"] img:not(.no-dim) {
+  filter: brightness(0.85);
+  transition: filter var(--transition-base);
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-light);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-bg-light);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}

@@ -1,0 +1,45 @@
+.reveal-wrapper {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: inherit;
+  transition-duration: inherit;
+}
+
+/* revealed state */
+.reveal-wrapper.revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+/* === Animations === */
+
+/* fade-up */
+.reveal-fade-up {
+  transform: translateY(40px);
+}
+
+/* fade-down */
+.reveal-fade-down {
+  transform: translateY(-40px);
+}
+
+/* fade-left */
+.reveal-fade-left {
+  transform: translateX(40px);
+}
+
+/* fade-right */
+.reveal-fade-right {
+  transform: translateX(-40px);
+}
+
+/* zoom-in */
+.reveal-zoom-in {
+  transform: scale(0.92);
+}
+
+/* fade-in (no movement) */
+.reveal-fade-in {
+  transform: none;
+}

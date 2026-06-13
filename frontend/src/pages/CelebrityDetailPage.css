@@ -1,0 +1,659 @@
+/* ===== CELEBRITY DETAIL PAGE ===== */
+.celebrity-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.celebrity-page__main {
+  flex: 1;
+}
+
+/* Loading */
+.celebrity-page__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: var(--space-md);
+  color: var(--color-text-muted);
+}
+
+.celebrity-page__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border-light);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   SECTION 1: PROFILE
+   ========================================================= */
+.celeb-profile {
+  background: var(--color-bg-light);
+  padding: var(--space-3xl) 0;
+}
+
+.celeb-profile__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* Avatar */
+.celeb-profile__avatar-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.celeb-profile__avatar {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(145deg, #c8c8c8 0%, #ddd 50%, #bbb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-slow);
+}
+
+.celeb-profile__avatar:hover {
+  transform: scale(1.03);
+}
+
+.celeb-profile__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.celeb-profile__avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.celeb-profile__avatar-head {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.celeb-profile__avatar-body {
+  width: 110px;
+  height: 65px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 55px 55px 8px 8px;
+  border-bottom: none;
+}
+
+/* Content */
+.celeb-profile__content {
+  animation: fadeSlideUp 0.6s ease forwards;
+}
+
+.celeb-profile__name {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-xs);
+}
+
+.celeb-profile__alt-name {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.celeb-profile__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.celeb-profile__meta-item {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.celeb-profile__fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.celeb-profile__field-tag {
+  padding: 0.3rem 0.9rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.celeb-profile__field-tag:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border-color: var(--color-accent);
+}
+
+.celeb-profile__bio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.celeb-profile__bio p {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: var(--color-text-secondary);
+}
+
+/* =========================================================
+   SECTION 2: FUN FACTS (SỰ THẬT THÚ VỊ)
+   ========================================================= */
+.celeb-facts {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg);
+}
+
+.celeb-facts__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+.celeb-facts__title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  letter-spacing: 0.5px;
+}
+
+.celeb-facts__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.celeb-facts__text p {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+/* Overlapping images */
+.celeb-facts__images {
+  position: relative;
+  height: 350px;
+}
+
+.celeb-facts__img {
+  position: absolute;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-slow);
+}
+
+.celeb-facts__img:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  z-index: 10 !important;
+}
+
+.celeb-facts__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ccc 0%, #e0e0e0 100%);
+}
+
+.celeb-facts__img--1 {
+  width: 260px;
+  height: 200px;
+  top: 0;
+  right: 40px;
+  z-index: 2;
+}
+
+.celeb-facts__img--1 .celeb-facts__img-placeholder {
+  background: linear-gradient(135deg, #b8b8b8 0%, #d0d0d0 100%);
+}
+
+.celeb-facts__img--2 {
+  width: 240px;
+  height: 180px;
+  bottom: 20px;
+  right: 0;
+  z-index: 3;
+}
+
+.celeb-facts__img--2 .celeb-facts__img-placeholder {
+  background: linear-gradient(135deg, #a5a5a5 0%, #c5c5c5 100%);
+}
+
+/* =========================================================
+   SECTION 3: QUIZ CTA
+   ========================================================= */
+.celeb-quiz {
+  padding: var(--space-lg) 0 var(--space-2xl);
+  background: var(--color-bg);
+}
+
+.celeb-quiz__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.celeb-quiz__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.85rem 2.2rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.celeb-quiz__btn:hover {
+  background: var(--color-black);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================================================
+   SECTION 4: RELATED ARTICLES (BÀI VIẾT LIÊN QUAN)
+   ========================================================= */
+.celeb-related {
+  padding: var(--space-2xl) 0 var(--space-3xl);
+  background: var(--color-bg-light);
+}
+
+.celeb-related__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.celeb-related__label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.celeb-related__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  letter-spacing: 0.5px;
+}
+
+.celeb-related__text {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.celeb-related__read-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.7rem 1.6rem;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-base);
+}
+
+.celeb-related__read-btn:hover {
+  background: var(--color-black);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Slider */
+.celeb-related__slider {
+  position: relative;
+}
+
+.celeb-related__slider-track {
+  position: relative;
+  height: 320px;
+}
+
+.celeb-related__slide {
+  position: absolute;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-slow);
+}
+
+.celeb-related__slide:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.celeb-related__slide-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #c0c0c0 0%, #ddd 100%);
+}
+
+.celeb-related__slide--main {
+  width: 70%;
+  height: 280px;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.celeb-related__slide--main .celeb-related__slide-placeholder {
+  background: linear-gradient(135deg, #bbb 0%, #d8d8d8 100%);
+}
+
+.celeb-related__slide--overlay-1 {
+  width: 45%;
+  height: 180px;
+  bottom: 0;
+  right: 10%;
+  z-index: 4;
+}
+
+.celeb-related__slide--overlay-1 .celeb-related__slide-placeholder {
+  background: linear-gradient(135deg, #a8a8a8 0%, #c8c8c8 100%);
+}
+
+.celeb-related__slide--overlay-2 {
+  width: 35%;
+  height: 160px;
+  top: 20px;
+  right: 0;
+  z-index: 2;
+}
+
+.celeb-related__slide--overlay-2 .celeb-related__slide-placeholder {
+  background: linear-gradient(135deg, #999 0%, #b8b8b8 100%);
+}
+
+/* Dots */
+.celeb-related__dots {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.celeb-related__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+}
+
+.celeb-related__dot--active {
+  background: var(--color-accent);
+  transform: scale(1.3);
+}
+
+.celeb-related__dot:hover:not(.celeb-related__dot--active) {
+  background: var(--color-text-muted);
+}
+
+/* =========================================================
+   SECTION 5: STORIES (CÂU CHUYỆN & GIAI THOẠI)
+   ========================================================= */
+.celeb-stories {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg);
+}
+
+.celeb-stories__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+.celeb-stories__title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xl);
+  letter-spacing: 1px;
+  position: relative;
+  padding-bottom: var(--space-sm);
+}
+
+.celeb-stories__title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--color-accent);
+}
+
+.celeb-stories__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.celeb-stories__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: fadeSlideUp 0.5s ease forwards;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+.celeb-stories__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-accent);
+}
+
+.celeb-stories__card-number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--color-border);
+  line-height: 1;
+}
+
+.celeb-stories__card:hover .celeb-stories__card-number {
+  color: var(--color-accent);
+}
+
+.celeb-stories__card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.celeb-stories__card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-top: auto;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+  .celeb-profile__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .celeb-profile__avatar {
+    width: 220px;
+    height: 220px;
+  }
+
+  .celeb-profile__meta {
+    justify-content: center;
+  }
+
+  .celeb-profile__fields {
+    justify-content: center;
+  }
+
+  .celeb-profile__bio {
+    text-align: left;
+  }
+
+  .celeb-facts__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .celeb-facts__images {
+    height: 260px;
+  }
+
+  .celeb-related__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .celeb-related__slider-track {
+    height: 240px;
+  }
+
+  .celeb-stories__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .celeb-profile__avatar {
+    width: 180px;
+    height: 180px;
+  }
+
+  .celeb-profile__name {
+    font-size: 1.8rem;
+  }
+
+  .celeb-facts__images {
+    height: 200px;
+  }
+
+  .celeb-facts__img--1 {
+    width: 200px;
+    height: 150px;
+    right: 20px;
+  }
+
+  .celeb-facts__img--2 {
+    width: 180px;
+    height: 140px;
+  }
+
+  .celeb-related__slider-track {
+    height: 200px;
+  }
+
+  .celeb-related__slide--main {
+    width: 80%;
+    height: 200px;
+  }
+
+  .celeb-related__slide--overlay-1 {
+    width: 50%;
+    height: 140px;
+  }
+
+  .celeb-related__slide--overlay-2 {
+    width: 40%;
+    height: 120px;
+  }
+}
