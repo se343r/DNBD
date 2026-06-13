@@ -45,13 +45,13 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent 50%, var(--color-bg) 100%),
-              linear-gradient(to bottom, rgba(102, 249, 250, 0.15), rgba(15, 23, 41, 0.4));
+              linear-gradient(to bottom, rgba(255, 247, 135, 0.15), rgba(15, 23, 41, 0.4));
   z-index: 1;
 }
 
 [data-theme="dark"] .hero__image-overlay {
   background: linear-gradient(90deg, transparent 50%, var(--color-bg) 100%),
-              linear-gradient(to bottom, rgba(102, 249, 250, 0.05), rgba(15, 23, 41, 0.8));
+              linear-gradient(to bottom, rgba(255, 247, 135, 0.05), rgba(15, 23, 41, 0.8));
 }
 
 .hero__floating-compass {
@@ -116,7 +116,7 @@
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary-600) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 40px rgba(102, 249, 250, 0.2);
+  text-shadow: 0 0 40px rgba(255, 247, 135, 0.2);
 }
 
 .hero__typewriter-container {
@@ -210,7 +210,7 @@
 
   .hero__image-overlay {
     background: linear-gradient(180deg, transparent 30%, var(--color-bg) 100%),
-                linear-gradient(to bottom, rgba(102, 249, 250, 0.15), rgba(15, 23, 41, 0.4));
+                linear-gradient(to bottom, rgba(255, 247, 135, 0.15), rgba(15, 23, 41, 0.4));
   }
 
   .hero__content {
