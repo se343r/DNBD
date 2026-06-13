@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 const { getPool, sql } = require('../config/db');
+
+const SALT_ROUNDS = 10;
 
 // ============================================
 // POST /api/users/register — Đăng ký tài khoản
@@ -26,11 +29,13 @@ router.post('/register', async (req, res) => {
       return res.status(409).json({ error: 'Username hoặc email đã tồn tại' });
     }
 
-    // Tạo tài khoản mới (lưu ý: ở production cần hash password)
+    // Hash mật khẩu trước khi lưu
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
     const result = await pool.request()
       .input('username', sql.VarChar(50), username)
       .input('email', sql.VarChar(100), email)
-      .input('password_hash', sql.VarChar(255), password) // TODO: Dùng bcrypt để hash
+      .input('password_hash', sql.VarChar(255), hashedPassword)
       .query(`
         INSERT INTO users (username, email, password_hash)
         VALUES (@username, @email, @password_hash)
@@ -73,8 +78,9 @@ router.post('/login', async (req, res) => {
 
     const user = result.recordset[0];
 
-    // So sánh mật khẩu (TODO: Dùng bcrypt.compare ở production)
-    if (user.password_hash !== password) {
+    // So sánh mật khẩu với bcrypt
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+    if (!isMatch) {
       return res.status(401).json({ error: 'Sai tên đăng nhập hoặc mật khẩu' });
     }
 
