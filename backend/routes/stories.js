@@ -1,23 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const { getPool, sql } = require('../config/db');
+const supabase = require('../config/db');
 
 // ============================================
 // GET /api/stories — Lấy tất cả câu chuyện
 // ============================================
 router.get('/', async (req, res) => {
   try {
-    const pool = getPool();
-    const result = await pool.request().query(`
-      SELECT 
-        s.id, s.title, s.view_count, s.created_at,
-        s.celebrity_id,
-        c.name AS celebrity_name, c.avatar_image
-      FROM stories s
-      JOIN celebrities c ON s.celebrity_id = c.id
-      ORDER BY s.created_at DESC
-    `);
-    res.json(result.recordset);
+    const { data, error } = await supabase
+      .from('stories')
+      .select(`
+        id, title, view_count, created_at, celebrity_id,
+        celebrities (name, avatar_image)
+      `)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    const formatted = (data || []).map(s => ({
+      id: s.id,
+      title: s.title,
+      view_count: s.view_count,
+      created_at: s.created_at,
+      celebrity_id: s.celebrity_id,
+      celebrity_name: s.celebrities?.name,
+      avatar_image: s.celebrities?.avatar_image
+    }));
+
+    res.json(formatted);
   } catch (error) {
     console.error('Lỗi lấy danh sách câu chuyện:', error.message);
     res.status(500).json({ error: 'Không thể lấy danh sách câu chuyện' });
@@ -30,50 +40,70 @@ router.get('/', async (req, res) => {
 // ============================================
 router.get('/:id', async (req, res) => {
   try {
-    const pool = getPool();
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.params.id) || 0;
 
     // Tăng lượt xem
-    await pool.request()
-      .input('id', sql.Int, id)
-      .query(`UPDATE stories SET view_count = view_count + 1 WHERE id = @id`);
+    const { data: current } = await supabase
+      .from('stories')
+      .select('view_count')
+      .eq('id', id)
+      .maybeSingle();
+
+    if (current) {
+      await supabase
+        .from('stories')
+        .update({ view_count: (current.view_count || 0) + 1 })
+        .eq('id', id);
+    }
 
     // Lấy chi tiết câu chuyện
-    const result = await pool.request()
-      .input('id', sql.Int, id)
-      .query(`
-        SELECT 
-          s.id, s.title, s.content, s.view_count, s.created_at,
-          s.celebrity_id,
-          c.name AS celebrity_name, c.avatar_image, c.summary AS celebrity_summary
-        FROM stories s
-        JOIN celebrities c ON s.celebrity_id = c.id
-        WHERE s.id = @id
-      `);
+    const { data: story, error: storyError } = await supabase
+      .from('stories')
+      .select(`
+        id, title, content, view_count, created_at, celebrity_id,
+        celebrities (name, avatar_image, summary)
+      `)
+      .eq('id', id)
+      .maybeSingle();
 
-    if (result.recordset.length === 0) {
+    if (storyError) throw storyError;
+    if (!story) {
       return res.status(404).json({ error: 'Không tìm thấy câu chuyện' });
     }
 
     // Lấy bình luận
-    const commentsResult = await pool.request()
-      .input('storyId', sql.Int, id)
-      .query(`
-        SELECT 
-          cm.id, cm.content, cm.created_at,
-          u.username
-        FROM comments cm
-        JOIN users u ON cm.user_id = u.id
-        WHERE cm.story_id = @storyId
-        ORDER BY cm.created_at DESC
-      `);
+    const { data: comments, error: commentsError } = await supabase
+      .from('comments')
+      .select(`
+        id, content, created_at,
+        users (username)
+      `)
+      .eq('story_id', id)
+      .order('created_at', { ascending: false });
 
-    const story = {
-      ...result.recordset[0],
-      comments: commentsResult.recordset,
+    if (commentsError) throw commentsError;
+
+    const formattedComments = (comments || []).map(c => ({
+      id: c.id,
+      content: c.content,
+      created_at: c.created_at,
+      username: c.users?.username
+    }));
+
+    const responseData = {
+      id: story.id,
+      title: story.title,
+      content: story.content,
+      view_count: story.view_count,
+      created_at: story.created_at,
+      celebrity_id: story.celebrity_id,
+      celebrity_name: story.celebrities?.name,
+      avatar_image: story.celebrities?.avatar_image,
+      celebrity_summary: story.celebrities?.summary,
+      comments: formattedComments
     };
 
-    res.json(story);
+    res.json(responseData);
   } catch (error) {
     console.error('Lỗi lấy chi tiết câu chuyện:', error.message);
     res.status(500).json({ error: 'Không thể lấy thông tin câu chuyện' });
@@ -85,16 +115,15 @@ router.get('/:id', async (req, res) => {
 // ============================================
 router.get('/celebrity/:celebrityId', async (req, res) => {
   try {
-    const pool = getPool();
-    const result = await pool.request()
-      .input('celebrityId', sql.Int, req.params.celebrityId)
-      .query(`
-        SELECT id, title, view_count, created_at
-        FROM stories
-        WHERE celebrity_id = @celebrityId
-        ORDER BY created_at DESC
-      `);
-    res.json(result.recordset);
+    const celebrityId = parseInt(req.params.celebrityId) || 0;
+    const { data, error } = await supabase
+      .from('stories')
+      .select('id, title, view_count, created_at')
+      .eq('celebrity_id', celebrityId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.json(data || []);
   } catch (error) {
     console.error('Lỗi lấy câu chuyện theo danh nhân:', error.message);
     res.status(500).json({ error: 'Không thể lấy câu chuyện' });
@@ -106,21 +135,22 @@ router.get('/celebrity/:celebrityId', async (req, res) => {
 // ============================================
 router.post('/:id/comments', async (req, res) => {
   try {
-    const pool = getPool();
+    const storyId = parseInt(req.params.id) || 0;
     const { user_id, content } = req.body;
 
     if (!user_id || !content) {
       return res.status(400).json({ error: 'Thiếu user_id hoặc content' });
     }
 
-    await pool.request()
-      .input('userId', sql.Int, user_id)
-      .input('storyId', sql.Int, req.params.id)
-      .input('content', sql.NVarChar(sql.MAX), content)
-      .query(`
-        INSERT INTO comments (user_id, story_id, content)
-        VALUES (@userId, @storyId, @content)
-      `);
+    const { error } = await supabase
+      .from('comments')
+      .insert({
+        user_id: parseInt(user_id) || 0,
+        story_id: storyId,
+        content
+      });
+
+    if (error) throw error;
 
     res.status(201).json({ message: 'Bình luận đã được thêm thành công' });
   } catch (error) {

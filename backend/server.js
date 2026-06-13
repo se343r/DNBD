@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const { connectDB } = require('./config/db');
+
 
 // Import các route
 const fieldsRoutes = require('./routes/fields');
@@ -23,15 +23,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Middleware to ensure DB connection is active before any routes (essential for serverless environment)
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (error) {
-    next(error);
-  }
-});
+
 
 // ===== API ROUTES =====
 
@@ -66,10 +58,7 @@ app.use((err, req, res, next) => {
 // ===== KHỞI ĐỘNG SERVER =====
 async function startServer() {
   try {
-    // Thử kết nối DB khi khởi động, ghi nhận log nếu lỗi mà không crash server
-    await connectDB().catch(err => {
-      console.error('⚠️ Lỗi kết nối DB ban đầu (Server vẫn khởi động):', err.message);
-    });
+
 
     app.listen(PORT, () => {
       console.log(`=============================================`);
