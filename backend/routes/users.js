@@ -33,8 +33,8 @@ router.post('/register', async (req, res) => {
       .input('password_hash', sql.VarChar(255), password) // TODO: Dùng bcrypt để hash
       .query(`
         INSERT INTO users (username, email, password_hash)
-        OUTPUT INSERTED.id, INSERTED.username, INSERTED.email, INSERTED.role, INSERTED.created_at
         VALUES (@username, @email, @password_hash)
+        RETURNING id, username, email, role, created_at
       `);
 
     res.status(201).json({

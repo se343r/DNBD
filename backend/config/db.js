@@ -1,54 +1,118 @@
-const sql = require('mssql');
+const { Pool } = require('pg');
 
-// Cấu hình kết nối SQL Server từ biến môi trường (.env)
-const dbConfig = {
-  server: process.env.DB_SERVER || 'localhost',
-  database: process.env.DB_NAME || 'DanhNhanBacDau',
-  user: process.env.DB_USER || 'sa',
-  password: process.env.DB_PASSWORD || '123456',
-  port: parseInt(process.env.DB_PORT) || 1433,
-  options: {
-    encrypt: false,               // Tắt mã hóa cho kết nối localhost
-    trustServerCertificate: true,  // Tin tưởng chứng chỉ tự ký (dev mode)
-  },
-  pool: {
-    max: 10,    // Tối đa 10 kết nối đồng thời
-    min: 0,
-    idleTimeoutMillis: 30000, // Đóng kết nối nhàn rỗi sau 30 giây
-  },
+// SQL type mocks for compatibility with mssql calls in route files
+const sql = {
+  Int: 'Int',
+  VarChar: (len) => `VarChar(${len})`,
+  NVarChar: (len) => `NVarChar(${len})`,
+  MAX: 'MAX'
 };
 
+// Database connection configuration for PostgreSQL
+const connectionString = process.env.DATABASE_URL;
+
+const dbConfig = {
+  connectionString: connectionString || 'postgresql://postgres:postgres@localhost:5432/postgres',
+  // Enable SSL automatically for remote databases (like Supabase)
+  ssl: connectionString && !connectionString.includes('localhost') && !connectionString.includes('127.0.0.1')
+    ? { rejectUnauthorized: false }
+    : false
+};
+
+class PgRequest {
+  constructor(pool) {
+    this.pool = pool;
+    this.inputs = {};
+  }
+
+  input(name, type, value) {
+    this.inputs[name] = value;
+    return this;
+  }
+
+  async query(sqlString) {
+    let translatedSql = sqlString;
+    const values = [];
+    const paramMap = {};
+
+    // Sort registered parameters by length descending to avoid partial substring match issues
+    const keys = Object.keys(this.inputs).sort((a, b) => b.length - a.length);
+
+    for (const key of keys) {
+      const val = this.inputs[key];
+      // Match '@parameterName' with word boundary
+      const regex = new RegExp(`@${key}\\b`, 'g');
+      
+      if (regex.test(translatedSql)) {
+        if (!(key in paramMap)) {
+          values.push(val);
+          paramMap[key] = values.length; // 1-based index for $1, $2, etc.
+        }
+        translatedSql = translatedSql.replace(regex, `$${paramMap[key]}`);
+      }
+    }
+
+    try {
+      const res = await this.pool.query(translatedSql, values);
+      return {
+        recordset: res.rows,
+        rowsAffected: [res.rowCount]
+      };
+    } catch (err) {
+      console.error('❌ Error executing query on Supabase/PostgreSQL:', translatedSql);
+      console.error('Parameters:', this.inputs);
+      console.error(err);
+      throw err;
+    }
+  }
+}
+
+class PgPoolWrapper {
+  constructor(pgPool) {
+    this.pgPool = pgPool;
+  }
+
+  request() {
+    return new PgRequest(this.pgPool);
+  }
+
+  async query(sqlString) {
+    return this.request().query(sqlString);
+  }
+}
+
 let pool = null;
+let poolWrapper = null;
 
 /**
- * Khởi tạo kết nối đến SQL Server.
- * Gọi một lần khi server khởi động.
+ * Initialize connection to PostgreSQL (Supabase).
  */
 async function connectDB() {
   if (pool) {
-    return pool;
+    return poolWrapper;
   }
   try {
-    pool = await sql.connect(dbConfig);
-    console.log('✅ Kết nối SQL Server thành công!');
-    console.log(`   📦 Database: ${dbConfig.database}`);
-    console.log(`   🖥️  Server:   ${dbConfig.server}:${dbConfig.port}`);
-    return pool;
+    pool = new Pool(dbConfig);
+    // Test database connection query
+    const res = await pool.query('SELECT NOW()');
+    poolWrapper = new PgPoolWrapper(pool);
+    console.log('✅ Kết nối PostgreSQL/Supabase thành công!');
+    console.log(`   🕒 Giờ server: ${res.rows[0].now}`);
+    return poolWrapper;
   } catch (error) {
-    console.error('❌ Lỗi kết nối SQL Server:', error.message);
+    console.error('❌ Lỗi kết nối PostgreSQL/Supabase:', error.message);
     throw error;
   }
 }
 
 /**
- * Lấy connection pool đã kết nối.
- * Dùng trong các route để thực thi truy vấn SQL.
+ * Get the connection pool wrapper.
  */
 function getPool() {
-  if (!pool) {
+  if (!poolWrapper) {
     throw new Error('Database chưa được kết nối! Hãy gọi connectDB() trước.');
   }
-  return pool;
+  return poolWrapper;
 }
 
 module.exports = { sql, connectDB, getPool };
