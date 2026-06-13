@@ -12,7 +12,6 @@ export default function Header() {
   const navItems = [
     { label: 'Trang chủ', to: '/' },
     { label: 'Danh mục', to: '/danh-muc' },
-    { label: 'Nhập nội dung', to: '/nhap-noi-dung' },
     { label: 'Giới thiệu', to: '/' }, // Let them scroll to About on HomePage
   ];
 
