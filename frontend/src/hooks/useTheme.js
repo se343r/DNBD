@@ -1,22 +1,16 @@
 import { useState, useEffect } from 'react';
 
 export function useTheme() {
-  const [theme, setTheme] = useState(() => {
-    // 1. Check localStorage first
-    const saved = localStorage.getItem('dnbd-theme');
-    if (saved) return saved;
-    // 2. Fallback to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  });
+  // Lock theme permanently to dark mode
+  const theme = 'dark';
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('dnbd-theme', theme);
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }, []);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    // Theme toggle is disabled
   };
 
-  return { theme, toggleTheme, isDark: theme === 'dark' };
+  return { theme, toggleTheme, isDark: true };
 }
