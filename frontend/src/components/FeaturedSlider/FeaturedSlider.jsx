@@ -7,24 +7,35 @@ import './FeaturedSlider.css';
 
 export default function FeaturedSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [fadeState, setFadeState] = useState('fade-in');
+  const isAnimatingRef = useRef(false);
   const autoPlayRef = useRef(null);
 
   // Filter only featured figures
   const featuredFigures = figuresData.filter(figure => figure.featured);
 
   const goToSlide = useCallback((index) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setCurrentSlide(index);
-    setTimeout(() => setIsAnimating(false), 500);
-  }, [isAnimating]);
+    if (isAnimatingRef.current || index === currentSlide) return;
+    isAnimatingRef.current = true;
+    setFadeState('fade-out');
+
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setFadeState('fade-in');
+
+      setTimeout(() => {
+        isAnimatingRef.current = false;
+      }, 300);
+    }, 300);
+  }, [currentSlide]);
 
   const nextSlide = useCallback(() => {
+    if (isAnimatingRef.current) return;
     goToSlide((currentSlide + 1) % featuredFigures.length);
   }, [currentSlide, goToSlide, featuredFigures.length]);
 
   const prevSlide = useCallback(() => {
+    if (isAnimatingRef.current) return;
     goToSlide((currentSlide - 1 + featuredFigures.length) % featuredFigures.length);
   }, [currentSlide, goToSlide, featuredFigures.length]);
 
@@ -70,7 +81,7 @@ export default function FeaturedSlider() {
           <div className="featured__bg-card"></div>
 
           {/* Main Card */}
-          <div className={`featured__card ${isAnimating ? 'animating' : ''}`} key={currentSlide}>
+          <div className={`featured__card ${fadeState}`}>
             <div className="featured__card-content">
               <div className="featured__badge-container">
                 <span className="featured__category-badge">{current.categoryLabel}</span>
