@@ -4,15 +4,22 @@ import './Chatbot.css';
 
 const API_CHATBOT_URL = '/api/chatbot';
 
-const QUICK_PROMPTS = [
+const ALL_QUICK_PROMPTS = [
   { text: 'Giới thiệu trang web này 🏛️', query: 'Giới thiệu về trang web Cổng Khám Phá Danh Nhân Việt Nam' },
   { text: 'Đại tướng Võ Nguyên Giáp ⚔️', query: 'Đại tướng Võ Nguyên Giáp là ai và có những chiến công gì nổi bật?' },
   { text: 'Nhà Trần có những ai? 👑', query: 'Trong danh sách danh nhân, những ai thuộc thời kỳ Nhà Trần?' },
-  { text: 'Làm sao để chơi Quiz? 🎓', query: 'Trang web có tính năng chơi Quiz lịch sử không, làm thế nào để tham gia?' }
+  { text: 'Làm sao để chơi Quiz? 🎓', query: 'Trang web có tính năng chơi Quiz lịch sử không, làm thế nào để tham gia?' },
+  { text: 'Ai viết Bình Ngô Đại Cáo? 📜', query: 'Ai là tác giả của Bình Ngô Đại Cáo và vai trò của người đó trong lịch sử?' },
+  { text: 'Hồ Chí Minh sinh năm nào? 🌟', query: 'Chủ tịch Hồ Chí Minh sinh năm nào và quê ở đâu?' },
+  { text: 'Truyện Kiều là của ai? ✍️', query: 'Đại thi hào Nguyễn Du đã sáng tác tác phẩm Truyện Kiều trong hoàn cảnh nào?' },
+  { text: 'Hai Bà Trưng chống quân nào? 🛡️', query: 'Cuộc khởi nghĩa Hai Bà Trưng chống lại thế lực phương Bắc nào và diễn ra năm nào?' }
 ];
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [quickPrompts] = useState(() => {
+    return [...ALL_QUICK_PROMPTS].sort(() => 0.5 - Math.random()).slice(0, 4);
+  });
   const [messages, setMessages] = useState([
     {
       role: 'model',
@@ -194,7 +201,7 @@ export default function Chatbot() {
           <div className="chatbot-suggestions">
             <p className="suggestions-title">💡 Gợi ý câu hỏi nhanh:</p>
             <div className="suggestions-list">
-              {QUICK_PROMPTS.map((prompt, i) => (
+              {quickPrompts.map((prompt, i) => (
                 <button
                   key={i}
                   onClick={() => handleSendMessage(prompt.query)}

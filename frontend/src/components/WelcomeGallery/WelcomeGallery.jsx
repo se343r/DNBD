@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, Compass } from 'lucide-react';
 import figuresData from '../../data/figures.json';
 import Button from '../common/Button/Button';
 import './WelcomeGallery.css';
 
 export default function WelcomeGallery() {
-  // Use first 5 figures for the gallery
-  const galleryFigures = figuresData.slice(0, 5);
+  // Use 5 random figures for the gallery, shuffled on load
+  const [galleryFigures] = useState(() => {
+    return [...figuresData].sort(() => 0.5 - Math.random()).slice(0, 5);
+  });
 
   return (
     <section className="welcome" id="welcome-section">

@@ -47,7 +47,6 @@ export default function Footer() {
         <div className="footer__column links-col">
           <h3 className="footer__title">Về dự án</h3>
           <ul className="footer__links">
-            <li><a href="#about-section">Giới thiệu chung</a></li>
             <li><a href="/">Đội ngũ phát triển</a></li>
             <li><a href="/">Điều khoản sử dụng</a></li>
             <li><a href="/">Chính sách bảo mật</a></li>
