@@ -56,7 +56,6 @@ export default function QuotesCarousel() {
     <section 
       className="quotes-section" 
       id="quotes-section"
-      style={{ background: randomGradient }}
       onMouseEnter={stopTimer}
       onMouseLeave={startTimer}
     >
