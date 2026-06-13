@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search } from 'lucide-react';
-import ThemeToggle from '../common/ThemeToggle/ThemeToggle';
 import './Header.css';
 
 export default function Header() {
@@ -37,8 +36,6 @@ export default function Header() {
         </nav>
 
         <div className="header__actions">
-          <ThemeToggle />
-
           <button
             className={`header__hamburger ${mobileMenuOpen ? 'header__hamburger--open' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

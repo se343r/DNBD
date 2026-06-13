@@ -6,13 +6,13 @@
   --color-primary-50:  #e8f4fd;   /* Lightest – backgrounds */
   --color-primary-100: #c5e4f9;   /* Light – hover states */
   --color-primary-200: #9dd2f5;   /* Light accent */
-  --color-primary-300: #6bbdef;   /* ★ Main brand color */
-  --color-primary-400: #4aaeeb;   /* Slightly darker */
-  --color-primary-500: #2196e3;   /* Darker for text on light bg */
-  --color-primary-600: #1a78c2;   /* Dark – active states */
-  --color-primary-700: #135a94;   /* Darker */
-  --color-primary-800: #0d3d66;   /* Very dark */
-  --color-primary-900: #071f38;   /* Deepest – near black */
+  --color-primary-300: #66f9fa;   /* ★ Main brand color */
+  --color-primary-400: #4de5e6;   /* Slightly darker */
+  --color-primary-500: #33cccc;   /* Darker for text on light bg */
+  --color-primary-600: #29a3a3;   /* Dark – active states */
+  --color-primary-700: #1f7a7a;   /* Darker */
+  --color-primary-800: #145252;   /* Very dark */
+  --color-primary-900: #0a2929;   /* Deepest – near black */
 
   /* === Neutral / Surface === */
   --color-bg: #ffffff;
@@ -36,13 +36,13 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 20px rgba(107, 189, 239, 0.3);
+  --shadow-glow: 0 0 20px rgba(102, 249, 250, 0.3);
 
   /* === Accent / Semantic === */
-  --color-accent: #6bbdef;        /* = primary-300 */
-  --color-accent-hover: #4aaeeb;  /* primary-400 */
-  --color-accent-glow: rgba(107, 189, 239, 0.3);
-  --color-accent-soft: rgba(107, 189, 239, 0.1);
+  --color-accent: #66f9fa;        /* = primary-300 */
+  --color-accent-hover: #4de5e6;  /* primary-400 */
+  --color-accent-glow: rgba(102, 249, 250, 0.3);
+  --color-accent-soft: rgba(102, 249, 250, 0.1);
   --color-gold: #f0c040;          /* Cho star ratings, highlights */
 
   /* === Overlay === */
@@ -112,13 +112,13 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 25px rgba(107, 189, 239, 0.25);
+  --shadow-glow: 0 0 25px rgba(102, 249, 250, 0.25);
 
   /* === Accent – giữ nguyên nhưng sáng hơn chút === */
-  --color-accent: #7ec8f5;        /* Sáng hơn trên nền tối */
-  --color-accent-hover: #9dd5f8;
-  --color-accent-glow: rgba(126, 200, 245, 0.25);
-  --color-accent-soft: rgba(126, 200, 245, 0.08);
+  --color-accent: #66f9fa;        /* Sáng hơn trên nền tối */
+  --color-accent-hover: #b3fcfd;
+  --color-accent-glow: rgba(102, 249, 250, 0.25);
+  --color-accent-soft: rgba(102, 249, 250, 0.08);
 
   /* === Overlay === */
   --color-overlay: rgba(0, 0, 0, 0.7);

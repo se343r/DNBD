@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, Sparkles, Layout, Eye, CheckCircle, AlertCircle, Plus, X, List, Image, FileText } from 'lucide-react';
+import { ArrowLeft, Save, Sparkles, Layout, Eye, CheckCircle, AlertCircle, Plus, X, List, Image, FileText, Lock, ArrowRight } from 'lucide-react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import './ImportContentPage.css';
@@ -18,6 +18,24 @@ const ERAS = ['Cổ đại', 'Trung đại', 'Cận đại', 'Hiện đại'];
 
 export default function ImportContentPage() {
   const navigate = useNavigate();
+  
+  // Password security states
+  const [password, setPassword] = useState('');
+  const [isAuthorized, setIsAuthorized] = useState(() => {
+    return sessionStorage.getItem('dnbd_import_authorized') === 'true';
+  });
+  const [passError, setPassError] = useState('');
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === '633435') {
+      setIsAuthorized(true);
+      sessionStorage.setItem('dnbd_import_authorized', 'true');
+      setPassError('');
+    } else {
+      setPassError('Mật khẩu không chính xác. Vui lòng thử lại!');
+    }
+  };
 
   // Core Form states
   const [name, setName] = useState('');
@@ -197,6 +215,44 @@ export default function ImportContentPage() {
   ];
   const [currentRelatedPreview, setCurrentRelatedPreview] = useState(0);
   const activeRelatedPreview = finalRelated[currentRelatedPreview % finalRelated.length] || finalRelated[0];
+
+  if (!isAuthorized) {
+    return (
+      <div className="import-page" id="import-page">
+        <Header />
+        <main className="import-page__main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '70vh' }}>
+          <div className="password-gate-card animate-fadeIn">
+            <div className="password-gate-icon">
+              <Lock size={36} />
+            </div>
+            <h2 className="password-gate-title">Khu vực hạn chế</h2>
+            <p className="password-gate-subtitle">Vui lòng nhập mật khẩu để tiếp tục nhập nội dung danh nhân.</p>
+            
+            <form onSubmit={handlePasswordSubmit} className="password-gate-form">
+              <div className="form-group">
+                <input
+                  type="password"
+                  placeholder="Nhập mật khẩu truy cập..."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="password-gate-input"
+                  id="password-input-field"
+                  autoFocus
+                />
+              </div>
+              {passError && <p className="password-gate-error">{passError}</p>}
+              
+              <button type="submit" className="password-gate-btn" id="password-submit-btn">
+                <span>Xác nhận</span>
+                <ArrowRight size={16} />
+              </button>
+            </form>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="import-page" id="import-page">

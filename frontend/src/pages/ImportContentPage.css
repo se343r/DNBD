@@ -662,3 +662,104 @@
     font-size: 26px;
   }
 }
+
+/* ==========================================================================
+   PASSWORD GATE (Access Protection)
+   ========================================================================== */
+
+.password-gate-card {
+  background: rgba(26, 17, 16, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.password-gate-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 24px auto;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.password-gate-title {
+  font-size: 24px;
+  font-weight: 850;
+  margin: 0 0 10px 0;
+  background: linear-gradient(90deg, #fff 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.password-gate-subtitle {
+  font-size: 13.5px;
+  color: #a1a1aa;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+.password-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.password-gate-input {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 12px 14px !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease !important;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.password-gate-input:focus {
+  outline: none;
+  border-color: #d4af37 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2) !important;
+}
+
+.password-gate-error {
+  color: #ef4444;
+  font-size: 12.5px;
+  margin: -8px 0 0 0;
+  text-align: left;
+}
+
+.password-gate-btn {
+  background: linear-gradient(135deg, #d4af37 0%, #aa841c 100%);
+  color: #120a08;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  transition: all 0.3s ease;
+}
+
+.password-gate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
