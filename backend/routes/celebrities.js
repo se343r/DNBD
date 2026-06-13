@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getPool, sql } = require('../config/db');
+const { requireImportKey } = require('../middleware/auth');
 
 // ============================================
 // GET /api/celebrities — Lấy tất cả danh nhân
@@ -129,6 +130,65 @@ router.get('/field/:fieldId', async (req, res) => {
   } catch (error) {
     console.error('Lỗi lấy danh nhân theo lĩnh vực:', error.message);
     res.status(500).json({ error: 'Không thể lấy danh nhân theo lĩnh vực' });
+  }
+});
+
+// ============================================
+// POST /api/celebrities — Thêm danh nhân mới (chỉ admin)
+// ============================================
+router.post('/', requireImportKey, async (req, res) => {
+  try {
+    const pool = getPool();
+    const {
+      name, realName, birthYear, deathYear,
+      shortDescription, image, era
+    } = req.body;
+
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: 'Thiếu tên danh nhân' });
+    }
+
+    // Tìm hoặc tạo thời kỳ lịch sử
+    let periodId = null;
+    if (era) {
+      const periodResult = await pool.request()
+        .input('era', sql.NVarChar(100), era)
+        .query(`SELECT id FROM historical_periods WHERE name = @era`);
+
+      if (periodResult.recordset.length > 0) {
+        periodId = periodResult.recordset[0].id;
+      } else {
+        const newPeriod = await pool.request()
+          .input('era', sql.NVarChar(100), era)
+          .query(`INSERT INTO historical_periods (name) VALUES (@era) RETURNING id`);
+        periodId = newPeriod.recordset[0].id;
+      }
+    }
+
+    // Thêm danh nhân
+    const result = await pool.request()
+      .input('name', sql.NVarChar(200), name.trim())
+      .input('alternative_name', sql.NVarChar(200), realName || null)
+      .input('birth_date', sql.VarChar(20), birthYear ? String(birthYear) : null)
+      .input('death_date', sql.VarChar(20), deathYear ? String(deathYear) : null)
+      .input('summary', sql.NVarChar(sql.MAX), shortDescription || null)
+      .input('avatar_image', sql.VarChar(500), image || null)
+      .input('period_id', sql.Int, periodId)
+      .query(`
+        INSERT INTO celebrities
+          (name, alternative_name, birth_date, death_date, summary, avatar_image, historical_period_id)
+        VALUES
+          (@name, @alternative_name, @birth_date, @death_date, @summary, @avatar_image, @period_id)
+        RETURNING id, name
+      `);
+
+    res.status(201).json({
+      message: 'Thêm danh nhân thành công!',
+      celebrity: result.recordset[0]
+    });
+  } catch (error) {
+    console.error('Lỗi thêm danh nhân:', error.message);
+    res.status(500).json({ error: 'Không thể thêm danh nhân' });
   }
 });
 

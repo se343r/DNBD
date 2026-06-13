@@ -22,18 +22,18 @@ export default function ImportContentPage() {
   // Password security states
   const [password, setPassword] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(() => {
-    return sessionStorage.getItem('dnbd_import_authorized') === 'true';
+    return !!sessionStorage.getItem('dnbd_import_key');
   });
   const [passError, setPassError] = useState('');
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === '633435') {
+    if (password.trim()) {
       setIsAuthorized(true);
-      sessionStorage.setItem('dnbd_import_authorized', 'true');
+      sessionStorage.setItem('dnbd_import_key', password.trim());
       setPassError('');
     } else {
-      setPassError('Mật khẩu không chính xác. Vui lòng thử lại!');
+      setPassError('Vui lòng nhập mật khẩu!');
     }
   };
 
@@ -150,15 +150,24 @@ export default function ImportContentPage() {
     };
 
     try {
+      const importKey = sessionStorage.getItem('dnbd_import_key');
       const response = await fetch(API_CELEBRITIES_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-import-key': importKey || ''
         },
         body: JSON.stringify(payload)
       });
 
       const data = await response.json();
+
+      if (response.status === 401) {
+        sessionStorage.removeItem('dnbd_import_key');
+        setIsAuthorized(false);
+        setPassError('Mật khẩu không đúng. Vui lòng thử lại!');
+        return;
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Có lỗi xảy ra khi gửi dữ liệu lên server.');
