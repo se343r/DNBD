@@ -8,10 +8,11 @@ export default function QuotesCarousel() {
   const [currentQuote, setCurrentQuote] = useState(0);
   const [isFade, setIsFade] = useState(false);
   const autoPlayRef = useRef(null);
-  
+
+  // Random gradient of #5f31ec, #ffffff, #d56bff on load
   const [randomGradient] = useState(() => {
     const angle = Math.floor(Math.random() * 360);
-    return `linear-gradient(${angle}deg, #5f31ec, #000000, #d56bff)`;
+    return `linear-gradient(${angle}deg, #5f31ec, #ffffff, #d56bff)`;
   });
 
   const triggerNext = useCallback(() => {
@@ -66,7 +67,10 @@ export default function QuotesCarousel() {
           align="center"
         />
 
-        <div className="quotes-carousel__container">
+        <div 
+          className="quotes-carousel__container"
+          style={{ background: randomGradient }}
+        >
           {/* Big decorative quotation mark */}
           <div className="quotes-carousel__quote-mark">“</div>
 
