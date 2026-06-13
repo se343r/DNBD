@@ -23,7 +23,8 @@ const dbConfig = {
   connectionString: connectionString || 'postgresql://postgres:postgres@localhost:5432/postgres',
   ssl: connectionString && !connectionString.includes('localhost') && !connectionString.includes('127.0.0.1')
     ? { rejectUnauthorized: false }
-    : false
+    : false,
+  connectionTimeoutMillis: 3000 // Thất bại nhanh chóng trong 3 giây nếu không kết nối được để tránh timeout từ Vercel
 };
 
 class PgRequest {
