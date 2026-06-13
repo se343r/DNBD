@@ -9,10 +9,10 @@ export default function QuotesCarousel() {
   const [isFade, setIsFade] = useState(false);
   const autoPlayRef = useRef(null);
 
-  // Random gradient of #5f31ec, #ffffff, #d56bff on load
+  // Random gradient of #5f31ec, #d56bff, #ffffff on load
   const [randomGradient] = useState(() => {
     const angle = Math.floor(Math.random() * 360);
-    return `linear-gradient(${angle}deg, #5f31ec, #ffffff, #d56bff)`;
+    return `linear-gradient(${angle}deg, #5f31ec, #d56bff, #ffffff)`;
   });
 
   const triggerNext = useCallback(() => {
