@@ -164,6 +164,10 @@
   z-index: 5;
 }
 
+.welcome__gallery-item--3:hover {
+  transform: translateX(-50%) translateY(-16px) scale(1.05);
+}
+
 .welcome__gallery-item--4 {
   width: 200px;
   height: 310px;
